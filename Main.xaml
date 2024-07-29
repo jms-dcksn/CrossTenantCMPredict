@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Main" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="999,984" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:c="clr-namespace:CrossPlatformTestCMPredict;assembly=Cross Platform Test CM Predict.Core" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1214,984" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:c="clr-namespace:CrossPlatformTestCMPredict;assembly=Cross Platform Test CM Predict.Core" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -79,6 +79,17 @@
     <Sequence.Variables>
       <Variable x:TypeArguments="c:MessagePrediction" Name="MessagePrediction" />
       <Variable x:TypeArguments="c:MessagePrediction" Name="MessagePred" />
+      <Variable x:TypeArguments="x:String" Name="ApiKey" />
+      <Variable x:TypeArguments="x:String" Name="FromEmail" />
+      <Variable x:TypeArguments="x:String" Name="ToEmail" />
+      <Variable x:TypeArguments="x:String" Name="Subject" />
+      <Variable x:TypeArguments="x:String" Name="EmailBody" />
+      <Variable x:TypeArguments="x:String" Name="ModelVersion" />
+      <Variable x:TypeArguments="x:String" Name="Project" />
+      <Variable x:TypeArguments="x:String" Name="Dataset" />
+      <Variable x:TypeArguments="x:String" Name="Org" />
+      <Variable x:TypeArguments="x:String" Name="Tenant" />
+      <Variable x:TypeArguments="x:String" Name="Environment" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -87,13 +98,14 @@
     </sap:WorkflowViewStateService.ViewState>
     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="CrossTenantCMPredict - Invoke Workflow File (CrossTenantCMPredict.cs)" sap:VirtualizedContainerService.HintSize="450,204" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="CrossTenantCMPredict.cs">
       <ui:InvokeWorkflowFile.Arguments>
-        <InArgument x:TypeArguments="x:String" x:Key="apiKey">HGOR74BGQMCUUIRNQH3QS6G7RUUYOKHVGOX2Q6HY3PTFXDFV</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="from">bethany8809@gmail.com</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="to">james.dickson@uipath.com</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="apiKey">[ApiKey]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="from">[FromEmail]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="to">[ToEmail]</InArgument>
         <InArgument x:TypeArguments="x:String" x:Key="sentAt">[DateTime.Now.ToString("yyyy-MM-ddThh:mm:ss.fff")]</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="subject">[EXTERNAL] Address Correction</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="message" xml:space="preserve">USE CAUTION: This message originates from a sender you have not previously corresponded with. If in doubt, report. Hello, My policy number is A32423234. The address on my renter's insurance is incorrect. It should look like:  123.Robberson Ave. Apt. A308 Springfield, MO 22345. Can this address also be updated for my auto policy? Thanks, Bethany Smith</InArgument>
-        <InArgument x:TypeArguments="x:String" x:Key="url">https://cloud.uipath.com/farmerstestingtrial/CM/reinfer_/api/v1/datasets/farmers-poc/farmers-dataset/labellers/3/predict</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="subject">[Subject]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="message">[EmailBody]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="url" xml:space="preserve">[String.Format("https://{5}.uipath.com/{3}/{4}/reinfer_/api/v1/datasets/{0}/{2}/labellers/{1}/predict", 
+   Project, ModelVersion, Dataset, Org, Tenant, Environment)]</InArgument>
         <OutArgument x:TypeArguments="c:MessagePrediction" x:Key="Output">[MessagePrediction]</OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
